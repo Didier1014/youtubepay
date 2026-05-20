@@ -128,37 +128,6 @@ src="https://www.facebook.com/tr?id=1485802536332760&ev=PageView
 <link rel="apple-touch-icon" href="images/cropped-PINGPINED-1-180x180.webp">
 <meta name="msapplication-TileImage" content="https://todaynews2025.com/wp-content/uploads/2024/12/cropped-PINGPINED-1-270x270.webp">
 		<style id="wp-custom-css">
-			.esconder {
-    display: none; /* Oculta as seções */
-}
-
-#saldo {
-    font-weight: bold;
-    font-size: 24px;
-    color: #fff;
-    text-align: center;
-    background-color: #009F2D;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: transform 0.3s ease;
-}
-
-.saldo-zoom.zoom-in {
-    transform: scale(1.2); /* Efeito de zoom no saldo */
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-#checkout-btn:hover {
-    background: #1890ff !important;
-    transform: scale(1.05);
-    transition: all 0.3s ease;
-}
-		</style>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -187,6 +156,16 @@ src="https://www.facebook.com/tr?id=1485802536332760&ev=PageView
   #checkout-btn-container { margin-top: 24px; text-align: center; padding: 0 16px 32px; display: none; }
   #checkout-btn { display: inline-block; padding: 18px 48px; background: linear-gradient(135deg,#2ec81f,#1fa315); color: #fff; font-size: 22px; font-weight: 800; border-radius: 50px; text-decoration: none; animation: bounce-btn 0.8s infinite alternate; box-shadow: 0 6px 20px rgba(46,200,31,0.5); font-family: Inter, Arial, sans-serif; letter-spacing: 1px; border: 2px solid rgba(255,255,255,0.3); }
   @keyframes bounce-btn { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-8px) scale(1.03); } }
+  .quiz-step { max-width: 500px; margin: 0 auto; padding: 20px 16px; text-align: center; }
+  .quiz-step img { max-width: 100%; border-radius: 12px; margin-bottom: 16px; }
+  .quiz-step h2 { font-size: 22px; margin-bottom: 8px; color: #111; }
+  .quiz-step p { font-size: 16px; color: #555; margin-bottom: 16px; }
+  .quiz-step .btn { display: block; width: 100%; padding: 14px; margin-bottom: 10px; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; background: #e8f5e9; color: #2e7d32; transition: 0.3s; }
+  .quiz-step .btn:hover { background: #2e7d32; color: #fff; }
+  .quiz-step .btn-green { background: linear-gradient(135deg,#2ec81f,#1fa315); color: #fff; font-size: 20px; padding: 18px; }
+  .quiz-step .btn-green:hover { background: linear-gradient(135deg,#1fa315,#15800c); }
+  .badge { display: inline-block; background: #009F2D; color: #fff; font-size: 24px; font-weight: 700; padding: 10px 24px; border-radius: 8px; margin-bottom: 16px; }
+  .vsl-hidden { display: none; }
 </style>
 </head>
 <body>
@@ -199,93 +178,171 @@ src="https://www.facebook.com/tr?id=1485802536332760&ev=PageView
   </div>
 </header>
 
-<div class="banner">Há muito pouco tempo restante para sacar o seu saldo disponível. 👇</div>
-
-<div style="position:relative;width:100%;aspect-ratio:16/9;background:#000;margin:0 auto;max-width:720px">
-  <iframe id="panda-video" src="https://player-vz-f9150b0d-544.tv.pandavideo.com/embed/?v=fd983439-a995-4616-9e06-548c9ef94411" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" allowfullscreen="true" fetchpriority="high"></iframe>
-</div>
-
-<div id="checkout-btn-container">
-  <a href="https://app.quorapay.online/pay/bc0627df-fd7e-4707-bffb-1452a0c08af1" target="_blank" id="checkout-btn">💰 Pagar a taxa</a>
-</div>
-
-<div class="comments-section">
-  <div class="comments-header">
-    <span style="display:flex;align-items:center;gap:6px">
-      <svg viewBox="0 0 448 512"><path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"/></svg>
-      <span class="hidden sm:inline">Plugin Social Facebook</span>
-    </span>
-    <span>11 de 22 comentários</span>
+<!-- QUIZ INICIAL -->
+<div id="quiz">
+  <div id="step1" class="quiz-step">
+    <h2>🎁 Parabéns! 🎁</h2>
+    <p>Você foi selecionado para o novo programa de recompensas do YouTube! Aproveite</p>
+    <h2>Você já ganhou <span id="saldo-quiz">33.91</span> dólares!</h2>
+    <p>Faça mais 5 avaliações e faça seu primeiro retiro!</p>
+    <button class="btn btn-green" onclick="avancar(1)">CLIQUE AQUI E COMECE!</button>
   </div>
 
-  <div class="fb-box">
-    <div class="fb-notice">Comentários recentes</div>
+  <div id="step2" class="quiz-step vsl-hidden">
+    <img src="images/beast-1.webp" alt="">
+    <h2>Qual é a sua reação quando você vê a capa deste vídeo?</h2>
+    <p>Selecione a opção abaixo ⬇️</p>
+    <button class="btn" onclick="avancar(2)">😡</button>
+    <button class="btn" onclick="avancar(2)">😠</button>
+    <button class="btn" onclick="avancar(2)">🤬</button>
+  </div>
 
-    <div class="comment">
-      <div class="avatar"><img src="https://images.pexels.com/photos/1099957/pexels-photo-1099957.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Carlos" style="width:40px;height:40px;border-radius:50%;object-fit:cover"></div>
-      <div class="comment-content">
-        <div class="comment-name">Carlos Mucavel</div>
-        <div class="comment-text">Obrigado, consegui sacar os 213 dólares 🙏 agora estou a fazer mais avaliações para ganhar mais.</div>
-        <div class="comment-reactions">👍 ❤️ 😮 42</div>
-      </div>
-    </div>
+  <div id="step3" class="quiz-step vsl-hidden">
+    <img src="images/Screenshot_1.png" alt="">
+    <h2>A capa deste vídeo faz você querer ver o vídeo?</h2>
+    <p>Selecione a opção abaixo ⬇️</p>
+    <button class="btn" onclick="avancar(3)">😡</button>
+    <button class="btn" onclick="avancar(3)">😠</button>
+    <button class="btn" onclick="avancar(3)">🤬</button>
+  </div>
 
-    <div class="comment">
-      <div class="avatar"><img src="https://images.pexels.com/photos/3746277/pexels-photo-3746277.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Nelma" style="width:40px;height:40px;border-radius:50%;object-fit:cover"></div>
-      <div class="comment-content">
-        <div class="comment-name">Nelma Chauque</div>
-        <div class="comment-text">Isso é surreal 😭 acho que esse será o meu ano kkkk</div>
-        <div class="comment-reactions">😂 ❤️ 31</div>
-      </div>
-    </div>
+  <div id="step4" class="quiz-step vsl-hidden">
+    <img src="images/Screenshot_3.png" alt="">
+    <h2>Qual é a sua reação quando você vê a capa deste vídeo?</h2>
+    <p>Selecione a opção abaixo ⬇️</p>
+    <button class="btn" onclick="avancar(4)">😡</button>
+    <button class="btn" onclick="avancar(4)">😠</button>
+    <button class="btn" onclick="avancar(4)">🤬</button>
+  </div>
 
-    <div class="comment">
-      <div class="avatar"><img src="https://images.pexels.com/photos/19379638/pexels-photo-19379638.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="João" style="width:40px;height:40px;border-radius:50%;object-fit:cover"></div>
-      <div class="comment-content">
-        <div class="comment-name">João Mabunda</div>
-        <div class="comment-text">Gostaria de agradecer por essa oportunidade, principalmente nós que fomos afetados pelas cheias em Xai-Xai. Tem ajudado muito, obrigado.</div>
-        <div class="comment-reactions">❤️ 👍 56</div>
-      </div>
-    </div>
+  <div id="step5" class="quiz-step vsl-hidden">
+    <img src="images/Screenshot_4.png" alt="">
+    <h2>Qual é a sua reação quando você vê a capa deste vídeo?</h2>
+    <p>Selecione a opção abaixo ⬇️</p>
+    <button class="btn" onclick="avancar(5)">👍 Sim</button>
+    <button class="btn" onclick="avancar(5)">👎 não</button>
+  </div>
 
-    <div class="comment">
-      <div class="avatar"><img src="https://images.pexels.com/photos/6311543/pexels-photo-6311543.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Rosa" style="width:40px;height:40px;border-radius:50%;object-fit:cover"></div>
-      <div class="comment-content">
-        <div class="comment-name">Rosa Macuácua</div>
-        <div class="comment-text">Usei por dois dias e fiz um total de 17 mil meticais. Vou conseguir comprar os materiais escolares dos meus filhos 🙌</div>
-        <div class="comment-reactions">❤️ 😮 63</div>
-      </div>
-    </div>
-
-    <div class="comment">
-      <div class="avatar"><img src="https://images.pexels.com/photos/29292086/pexels-photo-29292086.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Américo" style="width:40px;height:40px;border-radius:50%;object-fit:cover"></div>
-      <div class="comment-content">
-        <div class="comment-name">Américo Nhantumbo</div>
-        <div class="comment-text">No início duvidei, mas está mesmo a funcionar. Recomendo testar.</div>
-        <div class="comment-reactions">👍 22</div>
-      </div>
-    </div>
-
-    <div class="comment">
-      <div class="avatar"><img src="https://images.pexels.com/photos/19803587/pexels-photo-19803587.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Lucinda" style="width:40px;height:40px;border-radius:50%;object-fit:cover"></div>
-      <div class="comment-content">
-        <div class="comment-name">Lucinda Bila</div>
-        <div class="comment-text">Já comecei hoje e estou animada. Vamos ver até onde dá 💪</div>
-        <div class="comment-reactions">❤️ 18</div>
-      </div>
-    </div>
-
-    <div class="comment-input">
-      <input type="text" placeholder="Escreva um comentário...">
-    </div>
+  <div id="step6" class="quiz-step vsl-hidden">
+    <img src="images/verify.svg" alt="" style="width:80px;margin:0 auto 16px">
+    <h2>🎁 Parabéns! 🎁</h2>
+    <div class="badge" id="saldo-final">US$ 33.91</div>
+    <p>Para registrar sua conta m-pesa ou e-mola e retirar fundos, assista a um vídeo de 4 minutos.</p>
+    <button class="btn btn-green" onclick="iniciarVSL()">VER O VÍDEO</button>
   </div>
 </div>
 
+<!-- VSL CONTENT (hidden until quiz ends) -->
+<div id="vsl-content" class="vsl-hidden">
+  <div class="banner">Há muito pouco tempo restante para sacar o seu saldo disponível. 👇</div>
+
+  <div style="position:relative;width:100%;aspect-ratio:16/9;background:#000;margin:0 auto;max-width:720px">
+    <iframe src="https://player-vz-f9150b0d-544.tv.pandavideo.com/embed/?v=fd983439-a995-4616-9e06-548c9ef94411" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" allowfullscreen="true" fetchpriority="high"></iframe>
+  </div>
+
+  <div id="checkout-btn-container">
+    <a href="https://app.quorapay.online/pay/bc0627df-fd7e-4707-bffb-1452a0c08af1" target="_blank" id="checkout-btn">💰 Pagar a taxa</a>
+  </div>
+
+  <div class="comments-section">
+    <div class="comments-header">
+      <span style="display:flex;align-items:center;gap:6px">
+        <svg viewBox="0 0 448 512"><path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"/></svg>
+        <span>Plugin Social Facebook</span>
+      </span>
+      <span>11 de 22 comentários</span>
+    </div>
+
+    <div class="fb-box">
+      <div class="fb-notice">Comentários recentes</div>
+
+      <div class="comment">
+        <div class="avatar"><img src="https://images.pexels.com/photos/1099957/pexels-photo-1099957.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Carlos"></div>
+        <div class="comment-content">
+          <div class="comment-name">Carlos Mucavel</div>
+          <div class="comment-text">Obrigado, consegui sacar os 213 dólares 🙏 agora estou a fazer mais avaliações para ganhar mais.</div>
+          <div class="comment-reactions">👍 ❤️ 😮 42</div>
+        </div>
+      </div>
+
+      <div class="comment">
+        <div class="avatar"><img src="https://images.pexels.com/photos/3746277/pexels-photo-3746277.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Nelma"></div>
+        <div class="comment-content">
+          <div class="comment-name">Nelma Chauque</div>
+          <div class="comment-text">Isso é surreal 😭 acho que esse será o meu ano kkkk</div>
+          <div class="comment-reactions">😂 ❤️ 31</div>
+        </div>
+      </div>
+
+      <div class="comment">
+        <div class="avatar"><img src="https://images.pexels.com/photos/19379638/pexels-photo-19379638.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="João"></div>
+        <div class="comment-content">
+          <div class="comment-name">João Mabunda</div>
+          <div class="comment-text">Gostaria de agradecer por essa oportunidade, principalmente nós que fomos afetados pelas cheias em Xai-Xai. Tem ajudado muito, obrigado.</div>
+          <div class="comment-reactions">❤️ 👍 56</div>
+        </div>
+      </div>
+
+      <div class="comment">
+        <div class="avatar"><img src="https://images.pexels.com/photos/6311543/pexels-photo-6311543.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Rosa"></div>
+        <div class="comment-content">
+          <div class="comment-name">Rosa Macuácua</div>
+          <div class="comment-text">Usei por dois dias e fiz um total de 17 mil meticais. Vou conseguir comprar os materiais escolares dos meus filhos 🙌</div>
+          <div class="comment-reactions">❤️ 😮 63</div>
+        </div>
+      </div>
+
+      <div class="comment">
+        <div class="avatar"><img src="https://images.pexels.com/photos/29292086/pexels-photo-29292086.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Américo"></div>
+        <div class="comment-content">
+          <div class="comment-name">Américo Nhantumbo</div>
+          <div class="comment-text">No início duvidei, mas está mesmo a funcionar. Recomendo testar.</div>
+          <div class="comment-reactions">👍 22</div>
+        </div>
+      </div>
+
+      <div class="comment">
+        <div class="avatar"><img src="https://images.pexels.com/photos/19803587/pexels-photo-19803587.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Lucinda"></div>
+        <div class="comment-content">
+          <div class="comment-name">Lucinda Bila</div>
+          <div class="comment-text">Já comecei hoje e estou animada. Vamos ver até onde dá 💪</div>
+          <div class="comment-reactions">❤️ 18</div>
+        </div>
+      </div>
+
+      <div class="comment-input">
+        <input type="text" placeholder="Escreva um comentário...">
+      </div>
+    </div>
+  </div>
+</div>
+
+<audio id="coin-sound" src="media/audio_dinheiro.mp3" preload="auto"></audio>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-setTimeout(function() {
-  var el = document.getElementById('checkout-btn-container');
-  if (el) el.style.display = 'block';
-}, 556000);
+var saldoAtual = 33.91;
+
+function avancar(step) {
+  saldoAtual += 45;
+  document.getElementById('saldo').textContent = 'US$ ' + saldoAtual.toFixed(2);
+  document.getElementById('saldo-quiz').textContent = saldoAtual.toFixed(2);
+  document.getElementById('saldo-final').textContent = 'US$ ' + saldoAtual.toFixed(2);
+  document.getElementById('step' + step).classList.add('vsl-hidden');
+  document.getElementById('step' + (step + 1)).classList.remove('vsl-hidden');
+  var coin = document.getElementById('coin-sound');
+  if (coin) { coin.currentTime = 0; coin.play(); }
+  Swal.fire({ title: 'Saldo actualizado', html: '<strong>Recibiste: <span style="color:green;">+$45.00</span></strong>', icon: 'success', showConfirmButton: false, timer: 1500, timerProgressBar: true });
+}
+
+function iniciarVSL() {
+  document.getElementById('quiz').classList.add('vsl-hidden');
+  document.getElementById('vsl-content').classList.remove('vsl-hidden');
+  setTimeout(function() {
+    var el = document.getElementById('checkout-btn-container');
+    if (el) el.style.display = 'block';
+  }, 556000);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script>
 
 </body></html>
