@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Rewards - VSL</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; background: #f0f2f5; }
+header { padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; background: #fff; border-bottom: 1px solid #e5e7eb; }
+header img { height: 40px; width: auto; }
+.wallet { display: flex; align-items: center; gap: 8px; border: 2px dashed #86efac; border-radius: 12px; padding: 8px 16px; background: #fff; cursor: pointer; position: relative; user-select: none; }
+.wallet svg { width: 22px; height: 22px; color: #16a34a; flex-shrink: 0; }
+.wallet .amount { font-size: 24px; font-weight: 700; color: #16a34a; line-height: 1; }
+.wallet .toggle-icon { font-size: 12px; color: #16a34a; margin-left: 4px; transition: transform .2s; }
+.wallet.active .toggle-icon { transform: rotate(180deg); }
+.earnings-box { display: none; position: absolute; top: calc(100% + 6px); right: 0; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.12); width: 280px; z-index: 999; overflow: hidden; }
+.earnings-box.show { display: block; }
+.earnings-box .item { display: flex; justify-content: space-between; padding: 10px 16px; font-size: 14px; border-bottom: 1px solid #f0f2f5; }
+.earnings-box .item .label { color: #374151; }
+.earnings-box .item .val { color: #16a34a; font-weight: 700; }
+.earnings-box .item.total { background: #f0fdf4; font-weight: 700; }
+.earnings-box .item.total .label { font-weight: 700; color: #16a34a; }
+.earnings-box .item.total .val { font-size: 16px; }
+.banner { text-align: center; font-size: 16px; font-weight: 600; padding: 16px 20px; margin: 0 12px 12px; border-radius: 24px; background: linear-gradient(to top, #f0f2f5, #e5e7eb/50); border: 1px solid #d1d5db; }
+.video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; margin: 0 auto; max-width: 720px; }
+.video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+#checkout-btn-container { margin-top: 24px; text-align: center; padding: 0 16px 32px; display: none; }
+#checkout-btn { display: inline-block; padding: 18px 48px; background: linear-gradient(135deg,#2ec81f,#1fa315); color: #fff; font-size: 22px; font-weight: 800; border-radius: 50px; text-decoration: none; box-shadow: 0 6px 20px rgba(46,200,31,0.5); font-family: Inter, Arial, sans-serif; letter-spacing: 1px; border: 2px solid rgba(255,255,255,0.3); animation: bounce-btn 0.8s infinite alternate; }
+@keyframes bounce-btn { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-8px) scale(1.03); } }
+.comments-section { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; margin: 12px; overflow: hidden; }
+.comments-header { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+.comments-header svg { width: 20px; height: 20px; fill: #3A559F; }
+.fb-box { padding: 12px 16px; }
+.fb-notice { font-size: 12px; color: #666; margin-bottom: 10px; }
+.comment { display: flex; margin-bottom: 14px; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; margin-right: 10px; flex-shrink: 0; overflow: hidden; }
+.avatar img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.comment-content { background: #f0f2f5; border-radius: 10px; padding: 8px 12px; width: 100%; }
+.comment-name { font-weight: 700; font-size: 14px; }
+.comment-text { font-size: 14px; margin-top: 2px; }
+.comment-reactions { font-size: 12px; margin-top: 4px; color: #555; }
+.comment-input { display: flex; margin-top: 12px; }
+.comment-input input { width: 100%; padding: 10px 16px; border-radius: 20px; border: 1px solid #ccc; outline: none; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="../images/logo.png" alt="Logo">
+  <div class="wallet" id="walletToggle" onclick="toggleEarnings()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+    <span class="amount" id="saldo">US$ 213</span>
+    <span class="toggle-icon">▼</span>
+    <div class="earnings-box" id="earningsBox">
+      <div class="item"><span class="label">Avaliação de vídeo 1</span><span class="val">+ US$ 45,00</span></div>
+      <div class="item"><span class="label">Avaliação de vídeo 2</span><span class="val">+ US$ 45,00</span></div>
+      <div class="item"><span class="label">Avaliação de vídeo 3</span><span class="val">+ US$ 45,00</span></div>
+      <div class="item"><span class="label">Avaliação de vídeo 4</span><span class="val">+ US$ 45,00</span></div>
+      <div class="item"><span class="label">Avaliação de vídeo 5</span><span class="val">+ US$ 33,00</span></div>
+      <div class="item total"><span class="label">Total</span><span class="val">US$ 213,00</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="banner">Há muito pouco tempo restante para sacar o seu saldo disponível. 👇</div>
+
+<div class="video-wrap">
+  <iframe src="https://player-vz-f9150b0d-544.tv.pandavideo.com/embed/?v=fd983439-a995-4616-9e06-548c9ef94411" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" allowfullscreen="true" fetchpriority="high"></iframe>
+</div>
+
+<div id="checkout-btn-container">
+  <a href="https://app.quorapay.online/pay/bc0627df-fd7e-4707-bffb-1452a0c08af1" target="_blank" id="checkout-btn">💰 Pagar a taxa</a>
+</div>
+
+<div class="comments-section">
+  <div class="comments-header">
+    <span style="display:flex;align-items:center;gap:6px">
+      <svg viewBox="0 0 448 512"><path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"/></svg>
+      <span>Plugin Social Facebook</span>
+    </span>
+    <span>11 de 22 comentários</span>
+  </div>
+
+  <div class="fb-box">
+    <div class="fb-notice">Comentários recentes</div>
+
+    <div class="comment">
+      <div class="avatar"><img src="https://images.pexels.com/photos/1099957/pexels-photo-1099957.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Carlos"></div>
+      <div class="comment-content">
+        <div class="comment-name">Carlos Mucavel</div>
+        <div class="comment-text">Obrigado, consegui sacar os 213 dólares 🙏 agora estou a fazer mais avaliações para ganhar mais.</div>
+        <div class="comment-reactions">👍 ❤️ 😮 42</div>
+      </div>
+    </div>
+
+    <div class="comment">
+      <div class="avatar"><img src="https://images.pexels.com/photos/3746277/pexels-photo-3746277.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Nelma"></div>
+      <div class="comment-content">
+        <div class="comment-name">Nelma Chauque</div>
+        <div class="comment-text">Isso é surreal 😭 acho que esse será o meu ano kkkk</div>
+        <div class="comment-reactions">😂 ❤️ 31</div>
+      </div>
+    </div>
+
+    <div class="comment">
+      <div class="avatar"><img src="https://images.pexels.com/photos/19379638/pexels-photo-19379638.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="João"></div>
+      <div class="comment-content">
+        <div class="comment-name">João Mabunda</div>
+        <div class="comment-text">Gostaria de agradecer por essa oportunidade, principalmente nós que fomos afetados pelas cheias em Xai-Xai. Tem ajudado muito, obrigado.</div>
+        <div class="comment-reactions">❤️ 👍 56</div>
+      </div>
+    </div>
+
+    <div class="comment">
+      <div class="avatar"><img src="https://images.pexels.com/photos/6311543/pexels-photo-6311543.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Rosa"></div>
+      <div class="comment-content">
+        <div class="comment-name">Rosa Macuácua</div>
+        <div class="comment-text">Usei por dois dias e fiz um total de 17 mil meticais. Vou conseguir comprar os materiais escolares dos meus filhos 🙌</div>
+        <div class="comment-reactions">❤️ 😮 63</div>
+      </div>
+    </div>
+
+    <div class="comment">
+      <div class="avatar"><img src="https://images.pexels.com/photos/29292086/pexels-photo-29292086.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Américo"></div>
+      <div class="comment-content">
+        <div class="comment-name">Américo Nhantumbo</div>
+        <div class="comment-text">No início duvidei, mas está mesmo a funcionar. Recomendo testar.</div>
+        <div class="comment-reactions">👍 22</div>
+      </div>
+    </div>
+
+    <div class="comment">
+      <div class="avatar"><img src="https://images.pexels.com/photos/19803587/pexels-photo-19803587.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Lucinda"></div>
+      <div class="comment-content">
+        <div class="comment-name">Lucinda Bila</div>
+        <div class="comment-text">Já comecei hoje e estou animada. Vamos ver até onde dá 💪</div>
+        <div class="comment-reactions">❤️ 18</div>
+      </div>
+    </div>
+
+    <div class="comment-input">
+      <input type="text" placeholder="Escreva um comentário...">
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleEarnings() {
+  document.getElementById('earningsBox').classList.toggle('show');
+  document.getElementById('walletToggle').classList.toggle('active');
+}
+document.addEventListener('click', function(e) {
+  var w = document.getElementById('walletToggle');
+  if (w && !w.contains(e.target)) {
+    document.getElementById('earningsBox').classList.remove('show');
+    w.classList.remove('active');
+  }
+});
+setTimeout(function() {
+  var el = document.getElementById('checkout-btn-container');
+  if (el) el.style.display = 'block';
+}, 556000);
+</script>
+
+</body></html>
