@@ -21,6 +21,17 @@ header img { height: 40px; width: auto; }
 .earnings-box .item.total .label { font-weight: 700; color: #16a34a; }
 .earnings-box .item.total .val { font-size: 16px; }
 .banner { text-align: center; font-size: 16px; font-weight: 600; padding: 16px 20px; margin: 0 12px 12px; border-radius: 24px; background: linear-gradient(to top, #f0f2f5, #e5e7eb/50); border: 1px solid #d1d5db; }
+.quiz-section { max-width: 500px; margin: 0 auto 12px; padding: 0 12px; }
+.quiz-card { background: #fff; border-radius: 16px; padding: 20px; border: 1px solid #e5e7eb; text-align: center; }
+.quiz-card img { max-width: 100%; border-radius: 12px; margin-bottom: 12px; }
+.quiz-card h2 { font-size: 18px; color: #111; margin-bottom: 6px; }
+.quiz-card p { font-size: 14px; color: #555; margin-bottom: 16px; }
+.quiz-card .btn-group { display: flex; flex-direction: column; gap: 8px; }
+.quiz-card .btn-group .qbtn { padding: 12px; border-radius: 12px; border: 1px solid #d1d5db; background: #fff; font-size: 15px; cursor: pointer; transition: all .15s; text-align: center; }
+.quiz-card .btn-group .qbtn:hover { background: #f0fdf4; border-color: #86efac; }
+.quiz-card .btn-group .qbtn:active { background: #dcfce7; }
+.quiz-card .btn-group .qbtn.cta { background: #16a34a; color: #fff; border-color: #16a34a; font-weight: 700; }
+.quiz-card .btn-group .qbtn.cta:hover { background: #15803d; }
 .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; margin: 0 auto; max-width: 720px; }
 .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 #checkout-btn-container { margin-top: 24px; text-align: center; padding: 0 16px 32px; display: none; }
@@ -40,6 +51,8 @@ header img { height: 40px; width: auto; }
 .comment-reactions { font-size: 12px; margin-top: 4px; color: #555; }
 .comment-input { display: flex; margin-top: 12px; }
 .comment-input input { width: 100%; padding: 10px 16px; border-radius: 20px; border: 1px solid #ccc; outline: none; font-size: 14px; }
+.esconder { display: none !important; }
+.vsl-section { margin-top: 12px; }
 </style>
 </head>
 <body>
@@ -62,6 +75,76 @@ header img { height: 40px; width: auto; }
 </header>
 
 <div class="banner">Há muito pouco tempo restante para sacar o seu saldo disponível. 👇</div>
+
+<!-- QUIZ -->
+<div class="quiz-section" id="quizSection">
+
+  <div class="quiz-card" id="pergunta1">
+    <h2>🎉 Parabéns! 🎉</h2>
+    <p>Você foi selecionado para o novo programa de recompensas do YouTube! Aproveite esta oportunidade única.</p>
+    <div class="btn-group">
+      <button class="qbtn cta" onclick="avancar(1)">Começar</button>
+    </div>
+  </div>
+
+  <div class="quiz-card esconder" id="pergunta2">
+    <img src="images/beast-1.webp" alt="Vídeo">
+    <h2>Qual é a sua reação quando você vê a capa deste vídeo?</h2>
+    <p>Selecione a opção abaixo ⬇️</p>
+    <div class="btn-group">
+      <button class="qbtn" onclick="responder(2, 45)">😡 Chateado</button>
+      <button class="qbtn" onclick="responder(2, 45)">😊 Feliz</button>
+      <button class="qbtn" onclick="responder(2, 45)">😢 Triste</button>
+    </div>
+  </div>
+
+  <div class="quiz-card esconder" id="pergunta3">
+    <img src="images/Screenshot_1.png" alt="Vídeo">
+    <h2>A capa deste vídeo faz você querer ver o vídeo?</h2>
+    <p>Selecione a opção abaixo ⬇️</p>
+    <div class="btn-group">
+      <button class="qbtn" onclick="responder(3, 45)">Sim</button>
+      <button class="qbtn" onclick="responder(3, 45)">Não</button>
+      <button class="qbtn" onclick="responder(3, 45)">Talvez</button>
+    </div>
+  </div>
+
+  <div class="quiz-card esconder" id="pergunta4">
+    <img src="images/Screenshot_3.png" alt="Vídeo">
+    <h2>Qual é a sua reação quando você vê a capa deste vídeo?</h2>
+    <p>Selecione a opção abaixo ⬇️</p>
+    <div class="btn-group">
+      <button class="qbtn" onclick="responder(4, 45)">😡 Chateado</button>
+      <button class="qbtn" onclick="responder(4, 45)">😊 Feliz</button>
+      <button class="qbtn" onclick="responder(4, 45)">😢 Triste</button>
+    </div>
+  </div>
+
+  <div class="quiz-card esconder" id="pergunta5">
+    <img src="images/Screenshot_4.png" alt="Vídeo">
+    <h2>Qual é a sua reação quando você vê a capa deste vídeo?</h2>
+    <p>Selecione a opção abaixo ⬇️</p>
+    <div class="btn-group">
+      <button class="qbtn" onclick="responder(5, 45)">😡 Chateado</button>
+      <button class="qbtn" onclick="responder(5, 45)">😊 Feliz</button>
+      <button class="qbtn" onclick="responder(5, 45)">😢 Triste</button>
+    </div>
+  </div>
+
+  <div class="quiz-card esconder" id="pergunta6">
+    <img src="images/verify.svg" alt="Verificado" style="width:80px;margin:0 auto 12px;display:block">
+    <h2>🎉 Parabéns! 🎉</h2>
+    <p style="font-size:16px;font-weight:700;color:#16a34a" id="resultadoFinal"></p>
+    <p>Para registrar sua conta e retirar fundos, assista a um vídeo de 4 minutos.</p>
+    <div class="btn-group">
+      <button class="qbtn cta" onclick="iniciarVsl()">VER O VÍDEO</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- VSL -->
+<div class="vsl-section esconder" id="vslSection">
 
 <div class="video-wrap">
   <iframe src="https://player-vz-f9150b0d-544.tv.pandavideo.com/embed/?v=fd983439-a995-4616-9e06-548c9ef94411" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture" allowfullscreen="true" fetchpriority="high"></iframe>
@@ -143,6 +226,8 @@ header img { height: 40px; width: auto; }
   </div>
 </div>
 
+</div>
+
 <script>
 function toggleEarnings() {
   document.getElementById('earningsBox').classList.toggle('show');
@@ -155,10 +240,34 @@ document.addEventListener('click', function(e) {
     w.classList.remove('active');
   }
 });
-setTimeout(function() {
-  var el = document.getElementById('checkout-btn-container');
-  if (el) el.style.display = 'block';
-}, 556000);
+
+var saldoAtual = 33;
+var perguntaAtual = 1;
+
+function avancar(proxima) {
+  document.getElementById('pergunta' + perguntaAtual).classList.add('esconder');
+  document.getElementById('pergunta' + proxima).classList.remove('esconder');
+  perguntaAtual = proxima;
+}
+
+function responder(num, valor) {
+  saldoAtual += valor;
+  var saldoEl = document.getElementById('saldo');
+  saldoEl.textContent = 'US$ ' + saldoAtual;
+  avancar(num + 1);
+  if (num === 5) {
+    document.getElementById('resultadoFinal').textContent = 'Saldo total: US$ ' + saldoAtual;
+  }
+}
+
+function iniciarVsl() {
+  document.getElementById('quizSection').classList.add('esconder');
+  document.getElementById('vslSection').classList.remove('esconder');
+  setTimeout(function() {
+    var el = document.getElementById('checkout-btn-container');
+    if (el) el.style.display = 'block';
+  }, 556000);
+}
 </script>
 
 </body></html>
