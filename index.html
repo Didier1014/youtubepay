@@ -615,7 +615,7 @@ var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false
 </script>
 <script src="js/frontend.min_1.js" id="elementor-frontend-js"></script>
 <script src="js/elements-handlers.min.js" id="pro-elements-handlers-js"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<!-- HLS removed, using Panda Video embed -->
 <script>
 var videoTimer = null;
 function iniciarVideo() {
@@ -625,46 +625,27 @@ function iniciarVideo() {
     if (videoContainer) videoContainer.classList.remove('esconder');
     var placeholder = document.getElementById('video-placeholder');
     if (!placeholder) return;
-    var video = document.createElement('video');
-    video.id = 'meu-video';
-    video.style.cssText = 'width:100%;display:block;aspect-ratio:16/9;background:#000';
-    video.controls = true;
-    video.playsInline = true;
-    video.preload = 'auto';
-    placeholder.innerHTML = '';
-    placeholder.appendChild(video);
-    var src = 'https://cdn.converteai.net/0676996d-489f-4b3a-b4b1-b72208b80af3/6a0ba2032f505f640c84e0d2/main.m3u8';
-    if (typeof Hls !== 'undefined' && Hls.isSupported()) {
-        var hls = new Hls();
-        hls.loadSource(src);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function () {
-            video.play().catch(function () {});
-        });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = src;
-        video.addEventListener('loadedmetadata', function () {
-            video.play().catch(function () {});
-        });
-    } else {
-        placeholder.innerHTML = '<div style="padding:40px;text-align:center;color:#fff">Seu navegador não suporta reprodução de vídeo.</div>';
-        return;
-    }
+    placeholder.innerHTML = '<iframe id="panda-video" src="https://player-vz-f9150b0d-544.tv.pandavideo.com/embed/?v=fd983439-a995-4616-9e06-548c9ef94411" style="border:none;width:100%;aspect-ratio:16/9;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" allowfullscreen="true" fetchpriority="high"></iframe>';
     var btnContainer = document.getElementById('checkout-btn-container');
     if (btnContainer) btnContainer.style.display = 'none';
     if (videoTimer) clearInterval(videoTimer);
     videoTimer = setInterval(function () {
-        if (video && video.currentTime >= 556) {
-            if (btnContainer) btnContainer.style.display = 'block';
-            clearInterval(videoTimer);
-            videoTimer = null;
-        }
-    }, 1000);
-    video.addEventListener('ended', function () {
+        var iframe = document.getElementById('panda-video');
+        if (!iframe) return;
+        try {
+            var currentTime = iframe.contentWindow?.player?.currentTime?.();
+            if (currentTime && currentTime >= 556) {
+                if (btnContainer) btnContainer.style.display = 'block';
+                clearInterval(videoTimer);
+                videoTimer = null;
+            }
+        } catch(e) {}
+    }, 3000);
+    setTimeout(function () {
         if (btnContainer && btnContainer.style.display === 'none') {
-            btnContainer.style.display = 'block';
+            if (btnContainer) btnContainer.style.display = 'none';
         }
-    });
+    }, 5000);
 }
 </script>
 
