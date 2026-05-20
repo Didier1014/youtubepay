@@ -54,8 +54,10 @@ header img { height: 40px; width: auto; }
 .esconder { display: none !important; }
 .vsl-section { margin-top: 12px; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+<audio id="coinSound" src="media/audio_dinheiro.mp3" preload="auto"></audio>
 
 <header>
   <img src="images/logo.png" alt="Logo">
@@ -243,6 +245,7 @@ document.addEventListener('click', function(e) {
 
 var saldoAtual = 33;
 var perguntaAtual = 1;
+var coinSound = document.getElementById('coinSound');
 
 function avancar(proxima) {
   document.getElementById('pergunta' + perguntaAtual).classList.add('esconder');
@@ -254,6 +257,15 @@ function responder(num, valor) {
   saldoAtual += valor;
   var saldoEl = document.getElementById('saldo');
   saldoEl.textContent = 'US$ ' + saldoAtual;
+  if (coinSound) { coinSound.currentTime = 0; coinSound.play(); }
+  Swal.fire({
+    title: 'Saldo atualizado',
+    html: '<strong>Recebeu: <span style="color:green;">+US$ ' + valor + ',00</span></strong>',
+    icon: 'success',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true
+  });
   avancar(num + 1);
   if (num === 5) {
     document.getElementById('resultadoFinal').textContent = 'Saldo total: US$ ' + saldoAtual;
