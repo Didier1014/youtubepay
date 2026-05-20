@@ -184,9 +184,9 @@ src="https://www.facebook.com/tr?id=1485802536332760&ev=PageView
   .comment-reactions { font-size: 12px; margin-top: 4px; color: #555; }
   .comment-input { display: flex; margin-top: 12px; }
   .comment-input input { width: 100%; padding: 10px 16px; border-radius: 20px; border: 1px solid #ccc; outline: none; font-size: 14px; }
-  #checkout-btn-container { display: none; margin-top: 20px; text-align: center; padding: 0 16px 24px; }
-  #checkout-btn { display: inline-block; padding: 16px 40px; background: #2ec81f; color: #fff; font-size: 20px; font-weight: 700; border-radius: 12px; text-decoration: none; animation: pulse 2s infinite; box-shadow: 0 4px 8px 1px rgba(0,188,235,0.94); font-family: Inter, Arial, sans-serif; letter-spacing: 1px; }
-  @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+  #checkout-btn-container { margin-top: 24px; text-align: center; padding: 0 16px 32px; }
+  #checkout-btn { display: inline-block; padding: 18px 48px; background: linear-gradient(135deg,#2ec81f,#1fa315); color: #fff; font-size: 22px; font-weight: 800; border-radius: 50px; text-decoration: none; animation: bounce-btn 0.8s infinite alternate; box-shadow: 0 6px 20px rgba(46,200,31,0.5); font-family: Inter, Arial, sans-serif; letter-spacing: 1px; border: 2px solid rgba(255,255,255,0.3); }
+  @keyframes bounce-btn { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-8px) scale(1.03); } }
 </style>
 </head>
 <body>
@@ -201,17 +201,9 @@ src="https://www.facebook.com/tr?id=1485802536332760&ev=PageView
 
 <div class="banner">Há muito pouco tempo restante para sacar o seu saldo disponível. 👇</div>
 
-<div class="player-wrap">
-  <vturb-smartplayer id="vid-6a0ba4d45e4972cc8033fa9e" style="display:block;margin:0 auto;width:100%"></vturb-smartplayer>
-  <script>
-    var s = document.createElement("script");
-    s.src = "https://scripts.converteai.net/0676996d-489f-4b3a-b4b1-b72208b80af3/players/6a0ba4d45e4972cc8033fa9e/v4/player.js";
-    s.async = true;
-    document.head.appendChild(s);
-  </script>
+<div style="position:relative;width:100%;aspect-ratio:16/9;background:#000;margin:0 auto;max-width:720px">
+  <iframe id="panda-video" src="https://player-vz-f9150b0d-544.tv.pandavideo.com/embed/?v=fd983439-a995-4616-9e06-548c9ef94411" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" allowfullscreen="true" fetchpriority="high"></iframe>
 </div>
-
-<div class="sound-notice">🔊 Verifique se o seu som está ligado.</div>
 
 <div class="comments-section">
   <div class="comments-header">
@@ -286,23 +278,7 @@ src="https://www.facebook.com/tr?id=1485802536332760&ev=PageView
 </div>
 
 <div id="checkout-btn-container">
-  <a href="https://app.quorapay.online/pay/bc0627df-fd7e-4707-bffb-1452a0c08af1" target="_blank" id="checkout-btn">ATIVAR TAXA AGORA</a>
+  <a href="https://app.quorapay.online/pay/bc0627df-fd7e-4707-bffb-1452a0c08af1" target="_blank" id="checkout-btn">💰 Pagar a taxa</a>
 </div>
-
-<script>
-(function() {
-  var btnContainer = document.getElementById('checkout-btn-container');
-  var checkInterval = setInterval(function() {
-    var player = document.querySelector('vturb-smartplayer');
-    if (player) {
-      var video = player.querySelector('video');
-      if (video && video.currentTime >= 556) {
-        if (btnContainer) btnContainer.style.display = 'block';
-        clearInterval(checkInterval);
-      }
-    }
-  }, 1000);
-})();
-</script>
 
 </body></html>
